@@ -1,0 +1,45 @@
+<!-- HTML & JavaScript code by Max Wiederholt (max.wiederholt@gmail.com) -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>{{ items.item_name }}</title>
+    <meta name="description" content="Hi, Google! | HTML, CSS and Python (Django) by Max Wiederholt (max.wiederholt@gmail.com) for Coding Dojo.">
+    <!--
+
+    Create a new Django app called 'random_word'. Your template will show a random word with 14 characters in length.
+
+    The first time you use this app, it should say 'attempt #1'. Each time you generate a new random keyword, it should increment the attempt figure. The purpose of this assignment is to reinforce your understanding of form submissions and session. Don't spend too much time on the random word generator, it's okay if your random word is not a real word.
+
+    Also when an http request is sent to, say, localhost:8000/random_word/reset, have it reset the counter for the attempt and redirect back to localhost:8000/random_word.
+
+    -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="javascript-filename.js"></script> -->
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="../../static/python_belt_exam/styles.css">
+  </head>
+  <body>
+    <div class="header">
+      <a class="header-child header_link" href="/dashboard">Home</a>
+      <a class="header-child header_link" href="/logout">Logout</a>
+    </div>
+    <div class="item_wrapper">
+      <h3>{{ item.item_name }}</h3>
+      <p>Users who added this product / item under their wishlist:<p>
+      {% for user in users %}
+        <p>{{ user.name }}</p>
+      {% endfor %}
+    </div>
+    <div>
+      {% if messages %}
+        <ul class="messages">
+          {% for message in messages %}
+            <li class="{{ message.tags }}">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+  </body>
+</html>

@@ -1,0 +1,35 @@
+<html>
+  <head>
+    <title>Welcome</title>
+  </head>
+  <body>
+    <div>
+      {% if messages %}
+        <ul class="messages">
+          {% for message in messages %}
+            <li class="{{ message.tags }}">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+    <h3>Register:</h3>
+    <form action='/sign_up' method='POST'>
+      {% csrf_token %}
+      <label for="name">Name:<input type="text" name="name" id="name" value="{{ old_form.name }}"></label>
+      <label for="email">Username:<input type="text" name="email" id="email" value="{{ old_form.email }}"></label>
+      * Password should be at least 8 characters
+      <label for="password">Password:<input type="password" name="password" id="password"></label>
+      <label for="password_confirm">Password Confirm:<input type="password" name="password_confirm" id="password_confirm"></label>
+      <label for="date_hired">Date Hired:<input type="text" name="date_hired" id="date_hired" value="{{ old_form.date_hired }}"></label>
+      <input type="submit" value="Submit">
+    </form>
+    <h3>Log In:</h3>
+    <form action='/sign_in' method='POST'>
+      {% csrf_token %}
+      <label for="email_sign_in">Username:<input type="text" name="email_sign_in" id="email_sign_in" value="{{ old_form.email_sign_in }}"></label>
+      <label for="password_sign_in">Password:<input type="password" name="password_sign_in" id="password_sign_in"></label>
+      <label for="password_confirm_sign_in">Password Confirm:<input type="password" name="password_confirm_sign_in" id="password_confirm_sign_in"></label>
+      <input type="submit" value="Submit">
+    </form>
+  </body>
+</html>

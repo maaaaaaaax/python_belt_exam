@@ -1,0 +1,90 @@
+<!-- HTML by Max Wiederholt (max.wiederholt@gmail.com) -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>My Wishlist</title>
+    <meta name="description" content="Hi, Google! | HTML, CSS and Python (Django) by Max Wiederholt (max.wiederholt@gmail.com) for Coding Dojo.">
+    <!--
+
+    Create a new Django app called 'random_word'. Your template will show a random word with 14 characters in length.
+
+    The first time you use this app, it should say 'attempt #1'. Each time you generate a new random keyword, it should increment the attempt figure. The purpose of this assignment is to reinforce your understanding of form submissions and session. Don't spend too much time on the random word generator, it's okay if your random word is not a real word.
+
+    Also when an http request is sent to, say, localhost:8000/random_word/reset, have it reset the counter for the attempt and redirect back to localhost:8000/random_word.
+
+    -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="javascript-filename.js"></script> -->
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,500,700" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../../static/python_belt_exam/styles.css">
+  </head>
+  <body>
+    <div class="headline">
+      <h3>Users</h3>
+    </div>
+    <div class="header">
+      <p>Hello, {{ request.session.name }}</p>
+      <a class="header-child header_link" href="/dashboard">Home</a>
+      <a class="header-child header_link" href="/logout">Logout</a>
+    </div>
+    <div class="your_wishlist">
+      <h3>Your Wish List:</h3>
+      <table>
+        <tr>
+          <th class="column-1">Item</th>
+          <th class="column-2">Added By</th>
+          <th class="column-4">Date Added</th>
+          <th class="column-5">Action</th>
+        </tr>
+      {% for item in current_user_items %}
+      {% for user in users %}
+        {% if user.name == request.session.name %}
+        <tr>
+          <td class="column-1"><a class="header-child header_link" href="/wish_items/{{ item.id }}">{{ item.item_name }}</a></td>
+          <td class="column-2">{{ item.added_by }}</td>
+          <td class="column-4">Mar 26 2018</td>
+          {% if wish.added_by == request.session.name %}
+          <td class="column-6"><a href="/users/{{ user.id }}">Delete</a></td>
+          {% endif %}
+          {% if wish.added_by != request.session.name %}
+          <td class="column-6"><a href="/remove/{{ item.id }}">Remove from my Wishlist</a></td>
+          {% endif %}
+        </tr>
+        {% endif %}
+      {% endfor %}
+      {% endfor %}
+      </table>
+    </div>
+    <div class="other_wishlist">
+      <h3>All Wish List:</h3>
+      <table>
+        <tr>
+          <th class="column-1">Item</th>
+          <th class="column-2">Added By</th>
+          <th class="column-4">Date Added</th>
+          <th class="column-5">Action</th>
+        </tr>
+      {% for item in items %}
+        <tr>
+          <td class="column-1"><a class="header-child header_link" href="/wish_items/{{ item.id }}">{{ item.item_name }}</a></td>
+          <td class="column-2">{{ item.added_by }}</td>
+          <td class="column-4">Mar 26 2018</td>
+          <td class="column-6"><a href="/steal/{{ item.id }}">Add to my wishlist</a></td>
+        </tr>
+      {% endfor %}
+      </table>
+    </div>
+    <div>
+      {% if messages %}
+        <ul class="messages">
+          {% for message in messages %}
+            <li class="{{ message.tags }}">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+    <a href="/wish_items/create/">Add a new item</a>
+  </body>
+</html>
